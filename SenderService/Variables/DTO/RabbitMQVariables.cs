@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenderService.Variables
+namespace SenderService.Variables.DTO
 {
-    internal class TelegramVariables
+    internal class RabbitMQVariables
     {
-        public string telegramApiToken { get; set; }
+        public string RabbitHost { get; set; }
     }
 }

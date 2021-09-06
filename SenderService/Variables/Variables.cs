@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SenderService.Variables.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,6 @@ namespace SenderService.Variables
     internal class Variables
     {
         public TelegramVariables Telegram { get; set; }
+        public RabbitMQVariables RabbitMQ { get; set; }
     }
 }
