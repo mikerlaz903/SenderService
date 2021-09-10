@@ -10,5 +10,6 @@ namespace SenderService.Commands
     {
         Help = 1,
         ShowUsers = 2,
+        ChangeDatabaseLocation = 3
     }
 }

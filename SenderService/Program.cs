@@ -1,11 +1,13 @@
 ﻿using Json.Net;
+using MessengerOptions;
+using MessengerOptions.Factories;
+using MessengerOptions.Model;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using SenderService.Administration;
 using SenderService.Commands;
 using SenderService.Exceptions;
 using SenderService.Factories;
-using SenderService.Messengers;
 using SenderService.Models;
 using SenderService.Variables;
 using System;
@@ -15,12 +17,15 @@ namespace SenderService
 {
     public class Program
     {
+        private static readonly Variables.Variables Variables = VariablesProvider.ProgramConstants;
         public static void Main(string[] args)
         {
-            var messengerFactory = new MessengerFactory();
-            var sender = (TelegramMessenger)messengerFactory.GetTelegramMessenger();
+            DbContextFactory.ChangeDatabaseLocation(Variables.UsersDatabase.Location);
 
-            sender.StartCheckingUpdates();
+            var messengerFactory = new MessengerFactory();
+            var telegram = (TelegramMessenger.TelegramMessenger)messengerFactory.GetTelegramMessenger(Variables.Telegram);
+
+            telegram.StartCheckingUpdates();
 
             var factory = new ConnectionFactory
             {
@@ -55,6 +60,7 @@ namespace SenderService
                 ConsoleCommandProcessor.ProcessHelp(consoleString);
                 ConsoleCommandProcessor.ProcessShowUsers(consoleString);
                 ConsoleCommandProcessor.ProcessDeleteUser(consoleString);
+                ConsoleCommandProcessor.ProcessChangeDatabaseLocation(consoleString);
             }
         }
 
@@ -90,12 +96,20 @@ namespace SenderService
 
             try
             {
+                IMessenger messenger;
+                string chatId;
                 var factory = new MessengerFactory();
                 switch (message.Messenger)
                 {
                     case "telegram":
-                        var sender = factory.GetTelegramMessenger(message.Text);
-                        sender.SendMessage();
+                        chatId = GetUserTelegramByIdHash(message.UserIdHash).TelegramUserId.ToString();
+                        messenger = factory.GetTelegramMessenger(Variables.Telegram);
+                        messenger.SendMessage(chatId, message.Text);
+                        break;
+                    case "whatsApp":
+                        chatId = GetWhatsAppUserByIdHash(message.UserIdHash).WhatsAppUserId.ToString();
+                        messenger = factory.GetTelegramMessenger(Variables.Telegram);
+                        messenger.SendMessage(chatId, message.Text);
                         break;
                     default:
                         throw new NotSupportedMessengerException(
@@ -115,6 +129,18 @@ namespace SenderService
         private static MessageModel ReadMessage(string fullMessage)
         {
             return JsonNet.Deserialize<MessageModel>(fullMessage);
+        }
+
+        private static WhatsAppUserInfo GetWhatsAppUserByIdHash(string userIdHash)
+        {
+            using var context = new DbContextFactory().GetDbContext();
+            return context.GetWhatsAppUserByIdHash(userIdHash);
+        }
+
+        private static TelegramUserInfo GetUserTelegramByIdHash(string userIdHash)
+        {
+            using var context = new DbContextFactory().GetDbContext();
+            return context.GetTelegramUserByIdHash(userIdHash);
         }
     }
 }

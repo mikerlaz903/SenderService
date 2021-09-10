@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenderService", "SenderService\SenderService.csproj", "{E1A6748D-EB7D-4548-ACC3-23B1DECAD86A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderService", "SenderService\SenderService.csproj", "{E1A6748D-EB7D-4548-ACC3-23B1DECAD86A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Messengers", "Messengers", "{9DDFDED1-19FE-420F-AE3D-4A6A6F26D221}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramMessenger", "..\..\..\Desktop\TelegramMessenger\TelegramMessenger.csproj", "{B52CD326-B49B-49C0-AF3F-D1AD7E5B4006}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsAppMessenger", "..\..\..\Desktop\WhatsAppMessenger\WhatsAppMessenger.csproj", "{6892E4D0-F90C-484F-B3D5-8A41A1F79F97}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessengerOptions", "..\..\..\Desktop\MessengerOptions\MessengerOptions.csproj", "{854F2832-66B5-4129-BDB6-EC54BE383B78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +23,25 @@ Global
 		{E1A6748D-EB7D-4548-ACC3-23B1DECAD86A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1A6748D-EB7D-4548-ACC3-23B1DECAD86A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1A6748D-EB7D-4548-ACC3-23B1DECAD86A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B52CD326-B49B-49C0-AF3F-D1AD7E5B4006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B52CD326-B49B-49C0-AF3F-D1AD7E5B4006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B52CD326-B49B-49C0-AF3F-D1AD7E5B4006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B52CD326-B49B-49C0-AF3F-D1AD7E5B4006}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6892E4D0-F90C-484F-B3D5-8A41A1F79F97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6892E4D0-F90C-484F-B3D5-8A41A1F79F97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6892E4D0-F90C-484F-B3D5-8A41A1F79F97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6892E4D0-F90C-484F-B3D5-8A41A1F79F97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{854F2832-66B5-4129-BDB6-EC54BE383B78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{854F2832-66B5-4129-BDB6-EC54BE383B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{854F2832-66B5-4129-BDB6-EC54BE383B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{854F2832-66B5-4129-BDB6-EC54BE383B78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B52CD326-B49B-49C0-AF3F-D1AD7E5B4006} = {9DDFDED1-19FE-420F-AE3D-4A6A6F26D221}
+		{6892E4D0-F90C-484F-B3D5-8A41A1F79F97} = {9DDFDED1-19FE-420F-AE3D-4A6A6F26D221}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E033A8F4-E0AB-41BE-BAE9-D2B876C33F35}

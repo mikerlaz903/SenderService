@@ -1,4 +1,5 @@
-﻿using SenderService.Administration;
+﻿using MessengerOptions.Factories;
+using SenderService.Administration;
 using SenderService.Variables;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace SenderService.Commands
                     return ProcessHelp(command);
                 case CommandTypes.ShowUsers:
                     return ProcessShowUsers(command);
+                case CommandTypes.ChangeDatabaseLocation:
+                    return ProcessChangeDatabaseLocation(command);
                 default:
                     return false;
             }
@@ -45,9 +48,11 @@ namespace SenderService.Commands
             if (!match.Success)
                 return match.Success;
 
-            foreach (var id in AllowedUsers.UserList)
+            using var context = new DbContextFactory().GetDbContext();
+
+            foreach (var id in context.TelegramUsersInfo)
             {
-                OutputService.Write($"{id.TelegramUserName} ({id.TelegramUserId}) - {id.IsAdministrator}", true, false, null);
+                OutputService.Write($"{id.TelegramUsername} - {id.TelegramUserFirstName} {id.TelegramUserLastName} - ({id.TelegramUserId}) - {id.IsAdministrator}", true, false, null);
             }
 
             return match.Success;
@@ -59,13 +64,33 @@ namespace SenderService.Commands
             if (!match.Success)
                 return match.Success;
 
+            using var context = new DbContextFactory().GetDbContext();
+
             var userId = Convert.ToInt64(match.Groups[1].Value);
-            var user = AllowedUsers.UserList.Find(item => item.TelegramUserId == userId);
+            var user = context.TelegramUsersInfo.First(item => item.TelegramUserId == userId);
 
             if (user == null)
                 return false;
 
-            AllowedUsers.UserList.Remove(user);
+            context.TelegramUsersInfo.Remove(user);
+
+            return match.Success;
+        }
+
+        public static bool ProcessChangeDatabaseLocation(string command)
+        {
+            var match = Regex.Match(command, @"\s*change\s*database\s*location\s*(.*)\s*$", RegexOptions.IgnoreCase);
+            if (!match.Success)
+                return match.Success;
+
+            var newLocation = match.Groups[1].Value.ToString();
+
+
+            VariablesProvider.ProgramConstants.UsersDatabase.Location = newLocation;
+            VariablesProvider.SaveConstants();
+
+            DbContextFactory.ChangeDatabaseLocation(VariablesProvider.ProgramConstants.UsersDatabase.Location);
+
 
             return match.Success;
         }

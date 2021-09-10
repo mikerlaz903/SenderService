@@ -1,5 +1,4 @@
 ﻿using SenderService.Factories;
-using SenderService.Messengers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +8,9 @@ using Telegram.Bot.Types;
 
 namespace SenderService.Administration
 {
-    internal static class OutputService
+    public static class OutputService
     {
-        public static void Write(string text, bool consoleOutput, bool telegramAdministratorOutput, ChatId id)
+        internal static void Write(string text, bool consoleOutput, bool telegramAdministratorOutput, ChatId id)
         {
             if (consoleOutput)
                 Console.WriteLine(text);
@@ -21,8 +20,8 @@ namespace SenderService.Administration
                 return;
             if (telegramAdministratorOutput)
             {
-                var sender = (TelegramMessenger)factory.GetTelegramMessenger();
-                sender.SendMessage(id, text);
+                var sender = (TelegramMessenger.TelegramMessenger)factory.GetTelegramMessenger();
+                var returnMessage = sender.SendMessage(id, text);
             }
         }
         public static void Write(string text, bool consoleOutput, bool telegramAdministratorOutput, long id)

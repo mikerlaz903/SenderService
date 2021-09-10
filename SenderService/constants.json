@@ -1,5 +1,17 @@
 ﻿{
   "telegram": {
-    "telegramApiToken": ""
+    "telegramApiToken": "",
+    "telegramApiUrl": ""
+  },
+  "whatsApp": {
+    "whatsAppApiToken": "",
+    "whatsAppApiUrl": ""
+  },
+  "rabbitMQ": {
+    "rabbitHost": "localhost"
+  },
+
+  "usersDatabase": {
+    "location": ""
   }
 }

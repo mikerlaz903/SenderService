@@ -15,4 +15,16 @@
     <PackageReference Include="Telegram.Bot.Extensions.Polling" Version="0.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Desktop\MessengerOptions\MessengerOptions.csproj" />
+    <ProjectReference Include="..\..\..\..\Desktop\TelegramMessenger\TelegramMessenger.csproj" />
+    <ProjectReference Include="..\..\..\..\Desktop\WhatsAppMessenger\WhatsAppMessenger.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="constants.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
